@@ -44,9 +44,9 @@ class StudentdalApplicationTests {
 	
 	//Delete Student
 	
-	@Test
-	void testDeleteStudent() {
-		repo.deleteById(1l);
-	}
+//	@Test
+//	void testDeleteStudent() {
+//		repo.deleteById(1l);
+//	}
 
 }
