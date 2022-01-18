@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nur.location.entities.Location;
 import com.nur.location.service.LocationService;
+import com.nur.location.util.EmailUtil;
 
 @Controller
 public class LocationController {
+	
+	@Autowired
+	EmailUtil emailUtil;
 	
 	@Autowired
 	LocationService service;
@@ -29,7 +33,8 @@ public class LocationController {
 		
 		Location savedLocation = service.saveLocation(location);		
 		String msg = "Location saved with id: " + savedLocation.getId();		
-		model.addAttribute("message", msg);		
+		model.addAttribute("message", msg);	
+		emailUtil.sendMail("nur.nielit18@gmail.com", "Location Saved", "This mail is sent by Spring Boot App");
 		return "createLocation";
 	}
 	
@@ -58,14 +63,10 @@ public class LocationController {
 	}
 	
 	@PostMapping("/updateLoc")
-	public String updateLocation(@ModelAttribute("location") Location location, Model model) {
-		
+	public String updateLocation(@ModelAttribute("location") Location location, Model model) {		
 		service.updateLocation(location);	
 		List<Location> allLocations = service.getAllLocations();
 		model.addAttribute("list", allLocations);	
-		return "displayLocations";
-		
-		
+		return "displayLocations";			
 	}
-
 }

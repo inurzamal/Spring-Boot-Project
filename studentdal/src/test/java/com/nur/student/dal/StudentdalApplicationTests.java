@@ -38,15 +38,15 @@ class StudentdalApplicationTests {
 	@Test
 	void testUpdateStudent() {
 		Student student = repo.findById(1l).get();
-		student.setFee(700d);
+		student.setFee(600d);
 		repo.save(student);
 	}
 	
 	//Delete Student
 	
-//	@Test
-//	void testDeleteStudent() {
-//		repo.deleteById(1l);
-//	}
+	@Test
+	void testDeleteStudent() {
+		repo.deleteById(2l);
+	}
 
 }
