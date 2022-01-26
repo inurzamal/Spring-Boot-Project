@@ -1,0 +1,14 @@
+insert into flight values(1,'NYC',STR_TO_DATE('05-02-2018', '%d-%m-%Y'),
+'AUS','2018-02-05 03:14:55','AA1','American Airlines');
+
+insert into flight values(2,'NYC',STR_TO_DATE('05-02-2018', '%d-%m-%Y'),
+'AUS','2018-02-05 05:14:55','AA2','American Airlines');
+
+insert into flight values(3,'NYC',STR_TO_DATE('05-02-2018', '%d-%m-%Y'),
+'AUS','2018-02-05 06:14:55','AA3','American Airlines');
+
+insert into flight values(4,'DEL',STR_TO_DATE('05-02-2018', '%d-%m-%Y'),
+'GHY','2018-02-05 06:14:55','SW1','American Airlines');
+
+insert into flight values(5,'Mumbai',STR_TO_DATE('25-02-2022', '%d-%m-%Y'),
+'Guwahati','2022-02-25 06:14:55','SW5','American Airlines');
