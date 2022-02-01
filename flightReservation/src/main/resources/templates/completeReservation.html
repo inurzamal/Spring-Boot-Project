@@ -31,7 +31,7 @@ Departure Time: <b th:text="${flight.estimatedDepartureTime}"> </b> <br />
 	Expiry Date: <input type="text" name="expiryDate" />
 	CVV: <input type="text" name="cvv" />
 
-	<input type="hidden" name="flightId" value="${flight.id}" />
+	<input type="hidden" name="flightId" th:value="${flight.id}" />
 	<input type="submit" value="Confirm" />
 </pre>
 </form>
