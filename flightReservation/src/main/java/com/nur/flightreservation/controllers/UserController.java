@@ -17,6 +17,11 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@GetMapping("/")
+	public String showHome() {
+		return "index";
+	}
+	
 	@GetMapping("/register")
 	public String showRegistrationPage() {
 		return "login/registerUser";
