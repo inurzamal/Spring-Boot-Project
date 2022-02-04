@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Reservation Details</title>
+</head>
+<body>
+
+<h2>Flight Details</h2>
+
+Airlines: <b th:text="${reservation.flight.operatingAirlines}"></b> <br />
+Flight No: <b th:text="${reservation.flight.flightNumber}"></b> <br />
+Departure City: <b th:text="${reservation.flight.departureCity}"> </b><br />
+Arrival City: <b th:text="${reservation.flight.arrivalCity}"></b> <br />
+Date of Departure: <b th:text="${reservation.flight.dateOfDeparture}"> </b><br />
+Estimated Departure Time: <b th:text="${reservation.flight.estimatedDepartureTime}"> </b><br />
+
+<h2>Passenger Details</h2>
+
+First Name <b th:text="${reservation.passenger.firstName}"></b> <br />
+First Name <b th:text="${reservation.passenger.lastName}"></b> <br />
+First Name <b th:text="${reservation.passenger.email}"></b> <br />
+First Name <b th:text="${reservation.passenger.phone}"></b> <br /><br />
+
+<form action="completeCheckIn" method="post">
+Enter Number of Bags: <input type="text" name= "numberOfBags" />
+<input type="hidden" name="reservationId" th:value="${reservation.id}" />
+<input type="submit" value="Check-In" />
+
+</form>
+
+	
+</body>
+</html>

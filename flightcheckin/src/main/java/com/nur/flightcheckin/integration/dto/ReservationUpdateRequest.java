@@ -1,11 +1,22 @@
-package com.nur.flightreservation.dto;
+package com.nur.flightcheckin.integration.dto;
 
 public class ReservationUpdateRequest {
 	
 	private Long id;
 	private Boolean checkedIn;
 	private int numberOfBags;
+
 	
+	public ReservationUpdateRequest() {
+		super();
+	}
+
+	public ReservationUpdateRequest(Long id, Boolean checkedIn, int numberOfBags) {
+		super();
+		this.id = id;
+		this.checkedIn = checkedIn;
+		this.numberOfBags = numberOfBags;
+	}
 
 	public Long getId() {
 		return id;
