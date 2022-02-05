@@ -10,6 +10,8 @@ import com.nur.flightreservation.entities.Reservation;
 import com.nur.flightreservation.repos.FlightRepository;
 import com.nur.flightreservation.repos.PassengerRepository;
 import com.nur.flightreservation.repos.ReservationRepository;
+import com.nur.flightreservation.util.EmailUtil;
+import com.nur.flightreservation.util.PDFGenerator;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -22,6 +24,12 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	ReservationRepository reservationRepository;
+	
+	@Autowired
+	PDFGenerator pdfGenerator;
+	
+	@Autowired
+	EmailUtil emailUtil;
 
 	@Override
 	public Reservation bookFlight(ReservationRequest request) {
@@ -52,6 +60,11 @@ public class ReservationServiceImpl implements ReservationService {
 		reservation.setCheckedIn(false);
 		
 		Reservation savedReservation = reservationRepository.save(reservation);
+		
+		String filePath = "C:\\Users\\Nur\\Documents\\reservations\\reservation"+savedReservation.getId()+".pdf";
+		pdfGenerator.generateTicket(savedReservation, filePath);
+		
+		emailUtil.sendTicket(passenger.getEmail(), filePath);
 			
 		
 		return savedReservation;
