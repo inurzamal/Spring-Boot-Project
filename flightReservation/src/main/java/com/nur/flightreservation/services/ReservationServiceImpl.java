@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	EmailUtil emailUtil;
-	
+		
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
 	@Override
@@ -71,13 +71,14 @@ public class ReservationServiceImpl implements ReservationService {
 		Reservation savedReservation = reservationRepository.save(reservation);
 		
 		String filePath = "C:\\Users\\User\\Documents\\reservations\\reservation"+savedReservation.getId()+".pdf";
+
 		
 		LOGGER.info("Generating Ticket - filePath: "+filePath);
 		pdfGenerator.generateTicket(savedReservation, filePath);
 		
 		LOGGER.info("Emailing the Ticket");
 		emailUtil.sendTicket(passenger.getEmail(), filePath);
-			
+				
 		
 		return savedReservation;
 	}
