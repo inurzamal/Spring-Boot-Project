@@ -3,6 +3,8 @@ package com.nur.flightreservation.util;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.itextpdf.text.Document;
@@ -16,7 +18,11 @@ import com.nur.flightreservation.entities.Reservation;
 @Component
 public class PDFGenerator {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PDFGenerator.class);
+	
 	public void generateTicket(Reservation reservation, String filePath) {
+		
+		LOGGER.info("Inside generateTicket()");
 		
 		Document document = new Document();
 		
@@ -28,12 +34,15 @@ public class PDFGenerator {
 			document.close();
 		} 
 		catch (FileNotFoundException | DocumentException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception inside generateTicket() "+e);
 		}
 		
 	}
 
 	private PdfPTable generateTable(Reservation reservation) {
+		
+		//generateTable is a private method, so LOGGing is not required
+		
 		PdfPTable table = new PdfPTable(2);
 		
 		PdfPCell cell;

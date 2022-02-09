@@ -1,5 +1,7 @@
 package com.nur.flightreservation.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +18,15 @@ import com.nur.flightreservation.repos.ReservationRepository;
 @CrossOrigin
 public class ReservationRestController {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationRestController.class);
+	
 	@Autowired
 	ReservationRepository reservationRepository;
 	
 	@GetMapping("/reservation/{id}")
 	public Reservation findReservation(@PathVariable("id") Long id) {
+		
+		LOGGER.info("Inside findReservation() of ReservationRestController for id "+id);
 		
 		return reservationRepository.findById(id).get();		
 	}
@@ -28,11 +34,14 @@ public class ReservationRestController {
 	@PostMapping("/updateReservation")
 	public Reservation updateReservation(@RequestBody ReservationUpdateRequest request) {
 		
+		LOGGER.info("Inside updateReservation() of ReservationRestController for "+request);
+		
 		Reservation reservation = reservationRepository.findById(request.getId()).get();
 		
 		reservation.setNumberOfBags(request.getNumberOfBags());
 		reservation.setCheckedIn(request.getCheckedIn());
 		
+		LOGGER.info("Saving Reservation inside updateReservation() of ReservationRestController");
 		return reservationRepository.save(reservation);		
 	}
 }
