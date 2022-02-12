@@ -1,5 +1,6 @@
 package com.nur.flightcheckin.integration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,8 +10,10 @@ import com.nur.flightcheckin.integration.dto.ReservationUpdateRequest;
 @Component
 public class ReservationRestClientImpl implements ReservationRestClient {
 
-	private static final String RESERVATION_REST_URL = "http://localhost:8080/flightreservation/reservation/";
-	private static final String RESERVATION_REST_URL_UPDATE = "http://localhost:8080/flightreservation/updateReservation";
+	@Value("${com.nur.flightcheckin.reservation_rest_url}")
+	private String RESERVATION_REST_URL;
+	@Value("${com.nur.flightcheckin.reservation_rest_url_update}")
+	private String RESERVATION_REST_URL_UPDATE;
 
 	@Override
 	public Reservation findReservation(Long id) {
