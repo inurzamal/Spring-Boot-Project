@@ -3,6 +3,7 @@ package com.nur.flightreservation.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nur.flightreservation.entities.User;
 import com.nur.flightreservation.repos.UserRepository;
+import com.nur.flightreservation.services.SecurityService;
 
 @Controller
 public class UserController {
@@ -20,6 +22,12 @@ public class UserController {
 	UserRepository userRepository;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+	@Autowired
+	SecurityService securityService;
 	
 	@GetMapping("/")
 	public String showHome() {
@@ -35,7 +43,8 @@ public class UserController {
 	
 	@PostMapping("/login1")
 	public String registrationHandler(@ModelAttribute("user") User user) {		
-		LOGGER.info("Inside registrationHandler() method" + user);		
+		LOGGER.info("Inside registrationHandler() method" + user);	
+		user.setPassword(encoder.encode(user.getPassword()));
 		userRepository.save(user);
 		return "login/login";
 	}
@@ -48,9 +57,12 @@ public class UserController {
 	
 	@PostMapping("/findflights")
 	public String loginHandler(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-		LOGGER.info("Inside loginHandler() method and Email is: "+ email);		
-		User user = userRepository.findByEmail(email);
-		if(user.getPassword().equals(password)) {
+		
+		boolean loginResponse = securityService.login(email, password);
+		
+		LOGGER.info("Inside loginHandler() method and Email is: "+ email);	
+			
+		if(loginResponse) {
 			return "findFlights";
 		}else {
 			model.addAttribute("msg", "Inavalid Email or Password");
