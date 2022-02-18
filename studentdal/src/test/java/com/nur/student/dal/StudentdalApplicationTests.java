@@ -1,17 +1,26 @@
 package com.nur.student.dal;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.nur.student.dal.entities.Student;
 import com.nur.student.dal.repo.StudentRepository;
+import com.nur.student.dal.sevices.StudentService;
 
 @SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class StudentdalApplicationTests {
 	
 	@Autowired
 	private StudentRepository repo;
+	
+	@MockBean
+	private StudentService service;
 
 	
 	//Create Student
@@ -44,9 +53,19 @@ class StudentdalApplicationTests {
 	
 	//Delete Student
 	
+//	@Test
+//	void testDeleteStudent() {
+//		repo.deleteById(2l);
+//	}
+	
+	
+	//JUnit Test
+	
 	@Test
-	void testDeleteStudent() {
-		repo.deleteById(2l);
+	void isStudentExist() {		
+		Boolean actualResult = repo.isStudentExist(3l);		
+		boolean expectedResult = true;		
+		assertThat(actualResult).isEqualTo(expectedResult);
 	}
-
+	
 }
