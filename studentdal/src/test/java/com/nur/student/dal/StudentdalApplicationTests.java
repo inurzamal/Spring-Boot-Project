@@ -58,14 +58,10 @@ class StudentdalApplicationTests {
 //		repo.deleteById(2l);
 //	}
 	
-	
-	//JUnit Test
-	
 	@Test
 	void isStudentExist() {		
 		Boolean actualResult = repo.isStudentExist(3l);		
 		boolean expectedResult = true;		
 		assertThat(actualResult).isEqualTo(expectedResult);
 	}
-	
 }

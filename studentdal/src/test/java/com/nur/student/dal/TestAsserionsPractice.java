@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class TestAsserionsPractice {
 	
+	
 	@Test
 	public void testA() {
 		 String expected="Hello world";
@@ -12,4 +13,5 @@ public class TestAsserionsPractice {
 		 
 		 Assertions.assertEquals(expected, actual);
 	}
+	
 }
